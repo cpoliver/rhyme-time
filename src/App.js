@@ -1,10 +1,13 @@
 import React from 'react';
 
+import Metronome from './metronome/MetronomeContainer';
+
 import './App.css';
 
 const App = () => (
-    <div className="App">
-        <h1>RhymeTime</h1>
+    <div>
+        <Metronome updateInterval={33} />
+        <Metronome updateInterval={1000} />
     </div>
 );
 
