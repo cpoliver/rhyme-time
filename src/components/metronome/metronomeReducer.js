@@ -1,29 +1,19 @@
-import { reset, start, stop } from './MetronomeActions';
+import { reset, tick } from './MetronomeActions';
 
 const initialState = {
-    startedAt: undefined,
-    stoppedAt: undefined,
-    baseTime: undefined
+    ticks: 0
 };
 
 export default (state = initialState, action) => {
     const actions = {
         [reset().type]: {
             ...state,
-            baseTime: 0,
-            startedAt: state.startedAt ? action.now : undefined,
-            stoppedAt: state.stoppedAt ? action.now : undefined
+            ticks: 0
         },
-        [start().type]: {
+        [tick().type]: {
             ...state,
-            baseTime: action.baseTime,
-            startedAt: action.now,
-            stoppedAt: undefined
+            ticks: state.ticks + 1
         },
-        [stop().type]: {
-            ...state,
-            stoppedAt: action.now
-        }
     };
 
     return actions[action.type] || state;

@@ -1,15 +1,15 @@
-export const start = (baseTime = 0) => ({
-    type: 'START',
-    baseTime: baseTime,
-    now: new Date().getTime()
+export const reset = () => ({
+    type: 'RESET'
+});
+
+export const start = () => ({
+    type: 'START'
 });
 
 export const stop = () => ({
-    type: 'STOP',
-    now: new Date().getTime()
+    type: 'STOP'
 });
 
-export const reset = () => ({
-    type: 'RESET',
-    now: new Date().getTime()
+export const tick = () => ({
+    type: 'TICK'
 });

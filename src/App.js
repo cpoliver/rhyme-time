@@ -6,8 +6,7 @@ import './App.css';
 
 const App = () => (
     <div>
-        <Metronome updateInterval={33} />
-        <Metronome updateInterval={1000} />
+        <Metronome bpm={130} />
     </div>
 );
 

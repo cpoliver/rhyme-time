@@ -1,30 +1,45 @@
 import React from 'react';
 
-const getElapsedTime = (baseTime, startedAt, stoppedAt = new Date().getTime()) =>
-      !startedAt ? 0 : stoppedAt - startedAt + baseTime;
-
-export default class Timer extends React.Component {
+export default class Metronome extends React.Component {
     componentDidMount() {
-        this.interval = setInterval(this.forceUpdate.bind(this), this.props.updateInterval);
+        const { bpm } = this.props;
+        this.spb = 60 / bpm;
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        this.stop();
     }
 
     render() {
-        const { baseTime, startedAt, stoppedAt } = this.props;
-        const elapsed = getElapsedTime(baseTime, startedAt, stoppedAt);
+        const { ticks } = this.props;
+
+        const bar = Math.ceil(ticks / 4);
+        const beat = ticks === 0 ? 0 : ticks % 4 || 4;
 
         return (
             <div>
-              <div>Time: {elapsed}</div>
-              <div>
-                <button onClick={() => this.props.start(elapsed)}>Start</button>
-                <button onClick={() => this.props.stop()}>Stop</button>
-                <button onClick={() => this.props.reset()}>Reset</button>
-              </div>
+                <span className="metronome-bar">bar: {bar}</span>&nbsp;
+                <span className="metronome-beat">beat: {beat}</span>
+                <div>
+                    <button onClick={this.start}>Start</button>
+                    <button onClick={this.stop}>Stop</button>
+                    <button onClick={this.reset}>Reset</button>
+                </div>
             </div>
         );
+    }
+
+    start = () => {
+        this.stop();
+        this.interval = setInterval(this.props.tick, this.spb * 1000);
+    }
+
+    stop = () => {
+        clearInterval(this.interval);
+    }
+
+    reset = () => {
+        this.stop();
+        this.props.reset();
     }
 };
