@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Metronome from './metronome/MetronomeContainer';
+import Metronome from './components/metronome';
 
 import './App.css';
 
